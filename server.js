@@ -17,19 +17,28 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutsdb", { useNewUrlParser: true });
 
-app.get("/exercise", ({body}, res) => {
-  const workouts = new Workouts(body);
 
-  Workouts.create(workouts)
-    .then(dbWorkouts => {
-      res.json(dbWorkouts);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
 
+
+require("./routes/html-routes.js")(app);
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
 });
+
+
+
+
+
+
+// app.get("/exercise", ({body}, res) => {
+//   const workouts = new Workouts(body);
+
+//   Workouts.create(workouts)
+//     .then(dbWorkouts => {
+//       res.json(dbWorkouts);
+//     })
+//     .catch(err => {
+//       res.json(err);
+//     });
+// });

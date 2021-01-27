@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3000;
 
-const db = require("./models");
+const Workouts = require("./models/Workouts");
 
 const app = express();
 
@@ -15,34 +15,21 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutdb", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workoutsdb", { useNewUrlParser: true });
 
-db.User.create({ name: "Luke Martin" })
-  .then(dbUser => {
-    console.log(dbUser);
-  })
-  .catch(({ message }) => {
-    console.log(message);
-  });
+app.get("/exercise", ({body}, res) => {
+  const workouts = new Workouts(body);
 
-  app.get("/index", (req, res) => {
-    db.Workout.find({})
-      .then(dbWorkout => {
-        res.json(dbWorkout);
-      })
-      .catch(err => {
-        res.json(err);
-      });
-  });
+  Workouts.create(workouts)
+    .then(dbWorkouts => {
+      res.json(dbWorkouts);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 
 
-
-
-
-
-
-
-app.listen(3000, () => {
-    console.log("App running on port 3000!");
-  });
-  
+app.listen(PORT, () => {
+  console.log(`App running on port ${PORT}!`);
+});

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { INTEGER } = require("sequelize/types");
 const Schema = mongoose.Schema;
 
 const WorkoutsSchema = new Schema({
@@ -9,23 +8,23 @@ const WorkoutsSchema = new Schema({
     },
 
     Weight: {
-      type: INTEGER,
+      type: Number,
     },
 
     Sets: {
-      type: INTEGER,
+      type: Number,
     },
 
     Reps: {
-      type: INTEGER,
+      type: Number,
     },
 
     Distance: {
-      type: INTEGER,
+      type: Number,
     },
 
     Duration: {
-      type: INTEGER,
+      type: Number,
     },
 
     timeCreated: {

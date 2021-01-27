@@ -32,25 +32,13 @@ const WorkoutsSchema = new Schema({
       default: Date.now
     },
 
+    lastUpdated: { 
+      type: Date
+    },
+
   });
   
   const Workouts = mongoose.model("Workouts", WorkoutsSchema);
   
   module.exports = Workouts;
-
-// Needs to collections one for resistance and one for cardio
-
-// Resistance: - Collection
-    // Name
-    // Weight
-    // Sets
-    // Reps
-    // Duration
-
-
-// Cardio - Collection
-    // Name
-    // Distance
-    // Duration
-
 

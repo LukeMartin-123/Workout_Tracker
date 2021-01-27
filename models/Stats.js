@@ -1,1 +1,1 @@
-// Needs to populate all the workouts from workouts db and seperate them by cardio and resitance
+// Needs to populate all the workouts from workouts db

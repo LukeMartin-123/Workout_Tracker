@@ -1,3 +1,4 @@
+const { db } = require("../models/Workouts");
 const Workouts = require("../models/Workouts");
 
 module.exports = function (app) {
@@ -13,6 +14,8 @@ module.exports = function (app) {
             });
     });
 
+    // When I go to the exercise page, I need to receive the options for a workout
+
     // When I submit my exercises on the exercise page it needs to populate in the database
     app.post("exercises", ({ body }, res) => {
         Workouts.create(body)
@@ -24,15 +27,24 @@ module.exports = function (app) {
                 res.json(err);
             });
     });
+    // When I go to the "continue workout" it needs to update the specific workout I was on via the ID.
+
 
     // When I go to index it needs to display the last workout that was completed
 
 
+    // When I go to the stats page it needs to display the cumulation of the last 7 days of workouts
+    app.get("/stats"), function (req, res) {
+        db.Workouts.find({}, function (error, data) {
+            if (error) {
+                throw error
+            }
+            else {
+                res.json(data);
+            }
+        })
+    }
 
-    // When I go to the stats it needs to display the cumulation of the last 7 days of workouts
-
-
-    // When I go to the "continue workout" it needs to update the specific workout I was on via the ID.
 
 
 

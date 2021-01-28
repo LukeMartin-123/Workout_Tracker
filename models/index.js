@@ -9,3 +9,7 @@
 // Total Distance Covered
 
 // Aggregate Function needed
+
+module.export = {
+    Workout: require("./Workouts")
+}

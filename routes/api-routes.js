@@ -1,22 +1,45 @@
 const { db } = require("../models/Workouts");
 const Workouts = require("../models/Workouts");
 
-module.exports = function (app) {
+module.exports = function(app) {
 
-    // When I go to to api/workouts I need to find the data from the database
     app.get("/api/workouts", (req, res) => {
-        Workouts.find({})
-            .then(data => {
-                res.join(data)
+        db.Workouts.find({})
+            .then(dbWorkouts => {
+                res.json(dbWorkouts)
             })
             .catch(err => {
                 res.json(err);
             });
     });
 
-    // When I go to the exercise page, I need to receive the options for a workout
+    app.post("/api/workouts", (req, res) => {
+        db.Workouts.create(req.body)
+            .then(dbWorkouts => {
+                res.json(dbWorkouts)
+            })
+            .catch(err => {
+                res.json(err);
+            });
+    });
 
-    // When I submit my exercises on the exercise page it needs to populate in the database
+    app.post("/api/workouts:id", (req, res) => {
+        db.Workouts.findByIdAndUpdate({
+            _id: req.params.id
+        },
+            {
+                $push: {
+                    exercises: req.body
+                }
+            })
+            .then(data => {
+                res.json(data)
+            })
+            .catch(err => {
+                res.json(err);
+            });
+    });
+
     app.post("exercises", ({ body }, res) => {
         Workouts.create(body)
             .then(({ _id }) => db.User.findOneAndUpdate({}, { $push: { notes: _id } }, { new: true }))
@@ -27,14 +50,7 @@ module.exports = function (app) {
                 res.json(err);
             });
     });
-    // When I go to the "continue workout" it needs to update the specific workout I was on via the ID.
-
-
-    // When I go to index it needs to display the last workout that was completed
-
-
-    // When I go to the stats page it needs to display the cumulation of the last 7 days of workouts
-    app.get("/stats"), function (req, res) {
+    app.get("/api/workouts/range"), function (req, res) {
         db.Workouts.find({}, function (error, data) {
             if (error) {
                 throw error

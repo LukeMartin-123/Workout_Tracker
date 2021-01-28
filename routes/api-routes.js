@@ -23,9 +23,8 @@ module.exports = function (app) {
             });
     });
 
-    //posts a new works out 
     app.post("/api/workouts", (req, res) => {
-        Workouts.create({}) //need to explain how this works
+        Workouts.create({})
             .then(dbWorkouts => {
                 res.json(dbWorkouts)
             })
@@ -50,16 +49,6 @@ module.exports = function (app) {
             });
     });
 
-    // app.post("exercises", ({ body }, res) => {
-    //     Workouts.create(body)
-    //         .then(({ _id }) => User.findOneAndUpdate({}, { $push: { notes: _id } }, { new: true }))
-    //         .then(dbUser => {
-    //             res.json(dbUser);
-    //         })
-    //         .catch(err => {
-    //             res.json(err);
-    //         });
-    // });
 
     app.get('/api/workouts/range', function (req, res) {
         Workouts.aggregate([

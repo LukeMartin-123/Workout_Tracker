@@ -16,6 +16,7 @@ module.exports = function (app) {
         ])
             .then(dbWorkouts => {
                 res.json(dbWorkouts)
+                console.log(dbWorkouts)
             })
             .catch(err => {
                 res.json(err);
